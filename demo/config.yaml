@@ -1,0 +1,73 @@
+# 全局
+
+sys:
+  addr: :9095
+  debug: true
+  url_prefix: /
+  log:
+    dir: "/go/go_work/logs/xiaobugo"
+    stdout: true
+  pid: "/go/go_work/logs/xiaobugo/web.pid"
+  pid2: "/go/go_work/logs/xiaobugo/deamon.pid"
+
+
+app:
+  task_cron: true
+  mq_consume_cron: false
+  innermsg_consume_cron: true
+  redis_master: "10.1.20.63:6379"
+  redis_master_auth: "crs-e8cdsqxe:Deyiro1796Wrt"
+  redis_coupon: "10.1.20.63:6379"
+  redis_coupon_auth: "crs-e8cdsqxe:Deyiro1796Wrt"
+  log:
+    dir: "/go/go_work/logs/xiaobugo"
+    stdout: true
+  mysql:
+    read_dsn: api_w:SRsTI60fQE+RV-liaHU@tcp(127.0.0.1:3307)/xiaobu_new?parseTime=true&loc=Asia%2FShanghai
+    write_dsn: api_w:SRsTI60fQE+RV-liaHU@tcp(127.0.0.1:3307)/xiaobu_new?parseTime=true&loc=Asia%2FShanghai
+    max_conn: 50
+  kuaidi100:
+    customer: Daaaaa
+    key: sdofjsodfjsdlfj
+    callBackUrl: http://apitest.xiaobu121.com/go/callback/kuaidi100/subscribe
+  ipip_data:
+    path: /data/go/xb_api/config/17monipdb.datx
+  rabbitmq:
+    url: amqp://api:api_user@10.1.20.2:5672/cms
+    queue: q_alarm
+    queue_prefix: "test_"
+  rabbitmq_api:
+    url:
+      - amqp://api:api_user@10.1.20.2:5672/
+      - amqp://api:api_user@10.1.20.2:5672/
+    queue_prefix: "test_"
+    v_host: "api"
+    queue:
+      q_table_change: true
+  chuanglan:
+    url: http://smssh1.253.com/msg/send/json
+    account: N1224120
+    password: 6AO0zkJC3Z358c
+  chuanglan_market:
+    url: http://smssh1.253.com/msg/send/json
+    account: M1664610
+    password: gVxyaIchu54c08
+  es_host:
+    #- http://10.1.20.2:9200
+    #- http://10.1.20.2:9200
+    - http://127.0.0.1:9200
+  aksk:
+    cms_api: 6e208bac5546f64105cdbc862682a9b2dd62b4a2
+    py_api: 6e208bac5546f64105cdbc862682a9b2dd62b4a2
+    api_search: TyYTnpRxkvsN7t+4scPtT72U95YFfodeUfmeQbxhHWo=
+  tencentSms:
+    url: https://yun.tim.qq.com/v5/tlssmssvr/sendsms
+    appid: 1400025497
+    appkey: f3fad91cb2dcb9a67c8382eaa3aaac8e
+  santongSms:
+    url: http://www.dh3t.com/json/sms/Submit
+    account: dh26414
+    password: 4jHF1666
+  quartz:
+    operation_activity: "0 */1  * * * *"
+    promotion_send: "0 */1 * * * *"

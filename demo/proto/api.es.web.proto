@@ -1,0 +1,227 @@
+syntax = "proto3";
+option go_package="../proto";
+
+message Pic {
+  string pic = 1;
+  int64 width = 2;
+  int64 height = 3;
+  string scheme = 4;
+}
+message File {
+  int64 id = 1;
+  string res_id = 2;
+  string ori_url = 3;
+  string web_url = 4;
+  string video_cover = 5;
+  string owner_mark = 6;
+  string file_extension = 7;
+  int64 size = 8;
+  int64 width = 9;
+  int64 height = 10;
+  int64 play_time = 11;
+  string file_name = 12;
+}
+
+//API搜索入参
+message api_search_params {
+    string words = 1;
+    //搜索类型1=在家早教核心课, 2=专项亲子课, 3=清单, 4=知识电台,5=大咖, 6=10分钟大玩家,7=已购早教, 8=家长大学,9=家长社区,10=健康馆,11=用户攻略,12deep课,13=音乐,14=用户,15=玩具品类,16=玩具PCG文章(废弃合并到用户攻略里),17=小步头条知识,18=今日妈妈故事,19=小步精选之窗,20=历史一小步,21=新闻有意思,22=绘本精度,
+    repeated int64 type = 2;
+    int64 sub_search = 3; //是否是二级页面
+    int64 pn = 4;
+    int64 rn = 5;
+    int64 enter_type = 6;
+}
+
+//搜索返回所有数据
+message searchAllResult {
+    map<int64, searchResult> result = 1;
+}
+
+//每个搜索类型返回的数据
+message searchResult {
+    string title = 1;
+    string icon = 2;
+    string bought_tag = 3;
+    int64 total_count = 4;
+    string subtitle = 5;
+    string subtitle_scheme = 6;
+    int64 show_type = 7;
+    MoreInfo more_info = 8;
+    int64 page_continue = 9;
+    int64 enter_type = 10;
+    string search_kw = 11;
+    int64 search_type = 12;
+    repeated searchItem items = 13;
+}
+
+message MoreInfo {
+    string msg = 1;
+    int64 scheme = 2;
+}
+
+message downloadInfo {
+    string download_id = 1;
+    string download_title = 2;
+    string download_pic = 3;
+}
+
+message favorite {
+    int32 type = 1;
+    int64 attr_id = 2;
+    int64 fm_music_id = 3;
+}
+
+//每个类型对应的不同的item
+message searchItem {
+    string pic = 1;
+    int64 video_tag = 2;
+    string title = 3;
+    string desc = 4;
+    string attr_msg = 5;
+    string scheme = 6;
+    string bought_tag = 7;
+    string course_tag = 8;
+    int64 search_type = 9;
+    int64 is_step = 10;
+    string user_name = 11;
+    int64 is_follow = 12;
+    Pic is_v_icon = 13;
+    repeated Pic user_icon = 14;
+    string only_left = 15;
+    string sale_price = 16;
+    string ori_price = 17;
+    string discount_tag = 18;
+    searchSkuItem search_sku_item = 19;
+    string name = 20;
+    string is_cover = 21;
+    string res_id =22;
+    string music_url = 23;
+    string cover = 24;
+    searchMusicItem musicdata = 25;
+    Pic deep_card = 26;
+    searchCategoryItem search_category_item = 27;
+}
+
+message searchSkuItem {
+    int64 sku_id = 1;
+    int64 promotion_id = 2;
+}
+
+message searchMusicItem {
+    string music_title = 1;
+    string music_url = 2;
+    string music_cover = 3;
+    string music_text = 4;
+    int32 is_favorite = 5;
+    string long_time = 6;
+    downloadInfo download_info = 7;
+    favorite favorite = 8;
+}
+
+//从ES搜索返回的数据结构
+message searchEsUserResult {
+    int64 user_id = 1;
+    string user_name = 2;
+    string user_nickname = 3;
+    string user_image = 4;
+    int64 user_status = 5;
+    string user_baby_name = 6;
+    int64 gs_status = 7;
+    int64 g_status = 8;
+}
+
+//从ES搜索返回的数据结构
+message searchEsToySkuResult {
+    string sku_name = 1;
+    string sku_desc = 2;
+    int64 sku_id = 3;
+}
+
+//攻略-从ES搜索返回的数据结构
+message searchEsStrategyResult {
+    int64 step_id = 1;
+    int64 step_type = 2;
+    string content = 3;
+    string strategy_title = 4;
+    int64 step_status = 5;
+    string ctime = 6;
+    string utime = 7;
+    int64 tip_user_step_status = 8;
+    int64 tip_user_step_audit_status = 9;
+}
+
+//tip-从ES搜索返回的数据结构
+message searchEsTipResult {
+    int64 plan_id = 1;
+    int64 tip_id = 2;
+    string tip_title = 3;
+    string tip_desc = 4;
+    string tip_content = 5;
+    string create_time = 6;
+    string update_time = 7;
+    int64 tip_api_status = 8;
+    int64 plan_api_status = 9;
+    int64 courseb_progress_item_id = 10;
+    int64 plan_type = 11;
+    string tip_extend = 12;
+}
+
+
+//tip-从ES搜索返回的数据结构
+message searchEsPlanResult {
+    int64 plan_id = 1;
+    string plan_name = 2;
+    string plan_subname = 3;
+    string plan_des = 4;
+    int64 plan_api_status = 5;
+    string update_time = 6;
+    int64 plan_type = 7;
+    int64 kit_question_status = 8;
+}
+
+message searchEsFmResult {
+    string type = 1;
+    int64 fm_item_id = 2;
+    string fm_title = 3;
+    double min_age = 4;
+    double max_age = 5;
+    int32 fm_status = 6;
+    string fm_desc = 7;
+    int32 op_status = 8;
+    string month_day = 9;
+    string create_time = 10;
+    string update_time = 11;
+}
+
+message searchEsMusicResult {
+    int64 music_id = 1;
+    string music_name = 2;
+    string type = 3;
+    int64 music_cover_id = 4;
+    int32 music_status = 5;
+    int32 music_type = 6;
+    int64 music_audio_id = 7;
+    string music_lyric = 8;
+    int32 fm_music_status = 9;
+}
+
+message searchCategoryItem {
+    repeated string tags = 1;
+    Pic pic_tag = 2;
+}
+
+//玩具品类-从ES搜索返回的数据结构
+message searchEsCategoryResult {
+    int64 category_id = 1;
+    int64 toy_index_category_item_id = 2;
+    int32 toy_index_category_item_status = 3;
+    int32 sell_point_type = 4;
+    int32 sell_point_status = 5;
+    string toy_index_category_item_sell_point_name = 6;
+    string toy_index_category_item_title = 7;
+    string toy_index_category_item_introduce = 8;
+    string toy_index_category_item_utime = 9;
+}
+
+
